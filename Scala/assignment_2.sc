@@ -26,20 +26,20 @@ val s3 = singletonSet(3)
 println(toStr(s1))
 
 // 2. Returns the union of the two given sets.
-def union(s: FunSet, t: FunSet): FunSet = x => contains(s, x) | contains(t, x)
+def union(s: FunSet, t: FunSet): FunSet = x => contains(s, x) || contains(t, x)
 val u = union(union(s1, s2), s3)
 println(toStr(u))
 
 // 3. Returns the intersection of the two given sets.
-def intersect(s: FunSet, t: FunSet): FunSet = x => contains(s, x) & contains(t, x)
+def intersect(s: FunSet, t: FunSet): FunSet = x => contains(s, x) && contains(t, x)
 println(toStr(intersect(u, s1)))
 
 // 4. Returns the difference of the two given sets (the set of all elements of `s` that are not in `t`).
-def diff(s: FunSet, t: FunSet): FunSet = x => contains(s, x) & (! contains(t, x))
+def diff(s: FunSet, t: FunSet): FunSet = x => contains(s, x) && (!contains(t, x))
 println(toStr(diff(u, s1)))
 
 // 5. Returns the subset of `s` for which `p` holds.
-def filter(s: FunSet, p: Int => Boolean): FunSet = x => contains(s, x) & p(x)
+def filter(s: FunSet, p: Int => Boolean): FunSet = x => contains(s, x) && p(x)
 println(toStr(filter(u, x => x > 1)))
 
 // 6. Returns whether all bounded integers within `s` satisfy `p`.
@@ -47,7 +47,7 @@ def forall(s: FunSet, p: Int => Boolean): Boolean = {
   @tailrec
   def iter(a: Int): Boolean = {
     if (a > bound) true
-    else if (contains(s, a) & (!p(a))) false
+    else if (contains(s, a) && (!p(a))) false
     else iter(a + 1)
   }
   iter(-1 * bound)
@@ -60,7 +60,7 @@ def exists(s: FunSet, p: Int => Boolean): Boolean = {
   @tailrec
   def iter(a: Int): Boolean = {
     if (a > bound) false
-    else if (contains(s, a) & p(a)) true
+    else if (contains(s, a) && p(a)) true
     else iter(a + 1)
   }
   iter(-1 * bound)

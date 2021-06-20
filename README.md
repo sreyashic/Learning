@@ -1,2 +1,2 @@
 # Learning
-This repository is used to practice various technologies I learn
+This repository is used to practice various technologies Sreyashi will learn
